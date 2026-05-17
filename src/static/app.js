@@ -11,8 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const activities = await response.json();
 
       // Clear loading message
-      activitiesList.innerHTML = "";
-      activitySelect.innerHTML = '<option value="">-- Select an activity --</option>';
+      activitiesList.textContent = "";
+      activitySelect.textContent = "";
+      const placeholderOption = document.createElement("option");
+      placeholderOption.value = "";
+      placeholderOption.textContent = "-- Select an activity --";
+      activitySelect.appendChild(placeholderOption);
 
       // Populate activities list
       Object.entries(activities).forEach(([name, details]) => {
@@ -98,7 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
         activitySelect.appendChild(option);
       });
     } catch (error) {
-      activitiesList.innerHTML = "<p>Failed to load activities. Please try again later.</p>";
+      activitiesList.textContent = "";
+      const errorMessage = document.createElement("p");
+      errorMessage.textContent = "Failed to load activities. Please try again later.";
+      activitiesList.appendChild(errorMessage);
       console.error("Error fetching activities:", error);
     }
   }
