@@ -105,6 +105,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Handle participant unregister
   activitiesList.addEventListener("click", async (event) => {
+    if (!(event.target instanceof Element)) {
+      return;
+    }
+
     const deleteButton = event.target.closest(".participant-delete");
 
     if (!deleteButton) {
